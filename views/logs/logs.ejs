@@ -6,19 +6,30 @@
   <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
-  <div class="container">
-    <h1>Chào <%= user.username %> (Admin)</h1>
+  <header style="text-align: right;">
+  <form action="/logout" method="POST">
+    <button type="submit">🚪 Đăng xuất</button>
+  </form>
+</header>
 
-    <!-- Form tìm kiếm -->
-    <form action="/admin/dashboard" method="get">
-      <input 
-        type="text" 
-        name="keyword" 
-        placeholder="Tìm kiếm username, IP, hostname" 
-        value="<%= keyword %>"
-      />
-      <button type="submit"><i>🔍</i> Tìm kiếm</button>
-    </form>
+  <div class="container">
+  <h1>Chào <%= user.username %> (Admin)</h1>
+
+  <!-- Nút quản lý tài khoản -->
+  <a href="/admin/users">
+    <button style="margin-bottom: 20px;"><i>👥</i> Quản lý tài khoản</button>
+  </a>
+
+  <!-- Form tìm kiếm -->
+  <form action="/admin/dashboard" method="get">
+    <input 
+      type="text" 
+      name="keyword" 
+      placeholder="Tìm kiếm username, IP, hostname" 
+      value="<%= keyword %>"
+    />
+    <button type="submit"><i>🔍</i> Tìm kiếm</button>
+  </form>
 
     <!-- Form clear logs -->
     <form action="/admin/clear-logs" method="post">

@@ -18,10 +18,19 @@ router.post("/login", (req, res) => {
     [username, password],
     (err, user) => {
       if (err) return res.send("Lỗi truy vấn database.");
-      if (user) {
-        req.session.user = { username: user.username, role: user.role };
-        res.redirect("/admin/dashboard");
-      } else {
+if (user) {
+  if (user.status === "banned") {
+    return res.render("login", { error: "Tài khoản của bạn đã bị khóa vì vi phạm. Vui lòng liên hệ quản trị viên." });
+  }
+  req.session.user = { username: user.username, role: user.role };
+  if (user.role === "admin") {
+    res.redirect("/admin/dashboard");
+  } else {
+    res.redirect("/auth/welcome");
+  }
+}
+
+      else {
         res.render("login", { error: "Đăng nhập thất bại. Vui lòng thử lại." });
       }
     }
@@ -62,4 +71,14 @@ router.post("/logout", (req, res) => {
   });
 });
 
+// Trang chào mừng user thường
+router.get("/welcome", (req, res) => {
+  if (req.session.user && req.session.user.role === "member") {
+    res.render("welcome", { user: req.session.user });
+  } else {
+    res.redirect("/");
+  }
+});
+
 module.exports = router;
+

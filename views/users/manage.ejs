@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Quản lý tài khoản</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>👥 Quản lý tài khoản</h1>
+
+    <!-- Thêm tài khoản -->
+    <form action="/admin/users/add" method="POST">
+      <h3>➕ Thêm tài khoản mới</h3>
+      <input type="text" name="username" placeholder="Tên đăng nhập" required />
+      <input type="password" name="password" placeholder="Mật khẩu" required />
+      <select name="role" required>
+        <option value="member">Thành viên</option>
+        <option value="admin">Admin</option>
+      </select>
+      <button type="submit">✅ Thêm</button>
+    </form>
+
+    <!-- Bảng tài khoản -->
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Tên đăng nhập</th>
+          <th>Quyền</th>
+          <th>Trạng thái</th>
+          <th>Hành động</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (users.length === 0) { %>
+          <tr><td colspan="5">Không có tài khoản nào.</td></tr>
+        <% } else { %>
+          <% users.forEach(user => { %>
+            <tr>
+              <td><%= user.id %></td>
+              <td><%= user.username %></td>
+              <td><%= user.role %></td>
+              <td><%= user.status %></td>
+              <td>
+                <% if (user.role !== 'admin') { %>
+                  <!-- Khóa -->
+                  <% if (user.status === 'active') { %>
+                    <form action="/admin/users/block/<%= user.id %>" method="POST" style="display:inline;">
+                      <button type="submit" title="Khóa"><i>🔒</i></button>
+                    </form>
+                  <% } else { %>
+                    <!-- Mở khóa -->
+                    <form action="/admin/users/unblock/<%= user.id %>" method="POST" style="display:inline;">
+                      <button type="submit" title="Mở khóa"><i>🔓</i></button>
+                    </form>
+                  <% } %>
+
+                  <!-- Xoá -->
+                  <form action="/admin/users/delete/<%= user.id %>" method="POST" style="display:inline;" onsubmit="return confirm('Xóa tài khoản này?')">
+                    <button type="submit" title="Xóa"><i>🗑️</i></button>
+                  </form>
+                <% } else { %>
+                  <em>Không thao tác</em>
+                <% } %>
+              </td>
+            </tr>
+          <% }) %>
+        <% } %>
+      </tbody>
+    </table>
+
+    <p><a href="/admin/dashboard">⬅️ Quay lại trang Logs</a></p>
+  </div>
+</body>
+</html>

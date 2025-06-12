@@ -37,9 +37,11 @@ app.get("/", (req, res) => {
 // Routes
 const authRoutes = require("./routes/authRoutes");
 const adminRoutes = require("./routes/adminRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 app.use("/auth", authRoutes);
 app.use("/admin", adminRoutes);
+app.use("/admin", userRoutes);
 
 // Xử lý logout
 app.post("/logout", (req, res) => {

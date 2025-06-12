@@ -57,5 +57,23 @@ router.post("/clear-logs", isAdmin, (req, res) => {
     res.redirect("/admin/dashboard");
   });
 });
+// Khóa tài khoản
+router.post("/users/block/:id", isAdmin, (req, res) => {
+  const userId = req.params.id;
+  db.run("UPDATE users SET status = 'banned' WHERE id = ?", [userId], (err) => {
+    if (err) return res.send("Lỗi khi khóa tài khoản.");
+    res.redirect("/admin/users");
+  });
+});
+
+// Mở khóa tài khoản
+router.post("/users/unblock/:id", isAdmin, (req, res) => {
+  const userId = req.params.id;
+  db.run("UPDATE users SET status = 'active' WHERE id = ?", [userId], (err) => {
+    if (err) return res.send("Lỗi khi mở khóa tài khoản.");
+    res.redirect("/admin/users");
+  });
+});
+
 
 module.exports = router;
