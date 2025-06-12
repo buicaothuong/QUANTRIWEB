@@ -1,0 +1,105 @@
+/* Toàn bộ trang */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f3e8ff; /* tím pastel */
+  margin: 0;
+  padding: 20px;
+  color: #333;
+}
+
+/* Khối nội dung chính */
+.container, .dashboard-container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #ffffffee;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+/* Tiêu đề */
+h1, h2 {
+  color: #6c3483;
+  margin-bottom: 20px;
+}
+
+/* Form */
+form {
+  margin-bottom: 20px;
+  background: #fff5ff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+/* Input + select */
+input[type="text"],
+input[type="password"],
+input[type="search"],
+select {
+  padding: 10px;
+  width: calc(100% - 22px);
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-top: 8px;
+  margin-bottom: 12px;
+  background: #fdf7ff;
+}
+
+/* Nút bấm */
+button {
+  background-color: #a569bd;
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+button:hover {
+  background-color: #884ea0;
+}
+
+/* Icon trong nút */
+button i {
+  font-style: normal;
+}
+
+/* Bảng */
+table {
+  width: 100%;
+  background: #fefefe;
+  border-collapse: collapse;
+  margin-top: 20px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+table, th, td {
+  border: 1px solid #ddd;
+}
+th {
+  background-color: #e8daef;
+  text-align: left;
+}
+th, td {
+  padding: 12px;
+}
+
+/* Link */
+a {
+  color: #8e44ad;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* Logout button riêng nếu cần style khác */
+.logout-btn {
+  background-color: #d98880;
+}
+.logout-btn:hover {
+  background-color: #c0392b;
+}

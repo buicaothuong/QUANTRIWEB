@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Đăng nhập</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Đăng nhập</h1>
+
+    <% if (error) { %>
+      <p style="color: red;"><%= error %></p>
+    <% } %>
+
+    <form action="/auth/login" method="POST">
+      <label for="username">Tên đăng nhập:</label><br>
+      <input type="text" id="username" name="username" required><br>
+
+      <label for="password">Mật khẩu:</label><br>
+      <input type="password" id="password" name="password" required><br>
+
+      <button type="submit"><i>🔐</i> Đăng nhập</button>
+    </form>
+
+    <p>Chưa có tài khoản? <a href="/auth/register">Đăng ký</a></p>
+  </div>
+</body>
+</html>

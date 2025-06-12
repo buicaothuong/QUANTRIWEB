@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Quản lý Logs</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Chào <%= user.username %> (Admin)</h1>
+
+    <!-- Form tìm kiếm -->
+    <form action="/admin/dashboard" method="get">
+      <input 
+        type="text" 
+        name="keyword" 
+        placeholder="Tìm kiếm username, IP, hostname" 
+        value="<%= keyword %>"
+      />
+      <button type="submit"><i>🔍</i> Tìm kiếm</button>
+    </form>
+
+    <!-- Form clear logs -->
+    <form action="/admin/clear-logs" method="post">
+      <button type="submit" onclick="return confirm('Bạn có chắc muốn xóa tất cả logs?')">
+        <i>🗑️</i> Xóa tất cả logs
+      </button>
+    </form>
+
+    <!-- Bảng logs -->
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Username</th>
+          <th>IP</th>
+          <th>Hostname</th>
+          <th>Timestamp</th>
+          <th>Hành động</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (logs.length === 0) { %>
+          <tr><td colspan="6" style="text-align:center;">Không có logs nào.</td></tr>
+        <% } else { %>
+          <% logs.forEach(log => { %>
+            <tr>
+              <td><%= log.id %></td>
+              <td><%= log.username %></td>
+              <td><%= log.ip %></td>
+              <td><%= log.hostname %></td>
+              <td><%= new Date(log.timestamp).toLocaleString() %></td>
+              <td>
+                <form action="/admin/delete-log" method="post" onsubmit="return confirm('Bạn có chắc muốn xóa log này?')">
+                  <input type="hidden" name="id" value="<%= log.id %>" />
+                  <button type="submit"><i>❌</i> Xóa</button>
+                </form>
+              </td>
+            </tr>
+          <% }); %>
+        <% } %>
+      </tbody>
+    </table>
+
+    <!-- Form block IP hoặc hostname -->
+    <h2>Chặn IP hoặc Hostname</h2>
+    <form action="/admin/block" method="post">
+      <label>
+        Loại:
+        <select name="type" required>
+          <option value="ip">IP</option>
+          <option value="hostname">Hostname</option>
+        </select>
+      </label>
+      <label>
+        Giá trị:
+        <input type="text" name="value" required placeholder="Nhập IP hoặc hostname" />
+      </label>
+      <button type="submit"><i>🚫</i> Chặn</button>
+    </form>
+  </div>
+</body>
+</html>
