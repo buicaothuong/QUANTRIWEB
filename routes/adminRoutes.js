@@ -75,5 +75,14 @@ router.post("/users/unblock/:id", isAdmin, (req, res) => {
   });
 });
 
+// Xóa tài khoản 
+router.post("/users/delete/:id", isAdmin, (req, res) => {
+  const id = req.params.id;
+  db.run("DELETE FROM users WHERE id = ?", [id], (err) => {
+    if (err) return res.send("Lỗi khi xóa tài khoản.");
+    res.redirect("/admin/users");
+  });
+});
+
 
 module.exports = router;
