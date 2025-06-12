@@ -60,7 +60,7 @@
               <td><%= log.username %></td>
               <td><%= log.ip %></td>
               <td><%= log.hostname %></td>
-              <td><%= new Date(log.timestamp).toLocaleString() %></td>
+              <td><%= new Date(log.timestamp).toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' }) %></td>
               <td>
                 <form action="/admin/delete-log" method="post" onsubmit="return confirm('Bạn có chắc muốn xóa log này?')">
                   <input type="hidden" name="id" value="<%= log.id %>" />
